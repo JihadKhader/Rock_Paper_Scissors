@@ -38,19 +38,19 @@ class Game:
         move2 = self.p2.move()
 
         print(f"Player 1: {color_player1}{move1}{color_reset} "
-            f"Player 2: {color_player2}{move2}{color_reset}")
+                f"Player 2: {color_player2}{move2}{color_reset}")
 
         if move1 == move2:
             print("It's a tie!")
-            self.round_scores.append((0, 0))  
+            self.round_scores.append((0, 0))
         elif beats(move1, move2):
             print("Player 1 wins!")
             self.p1.score += 1
-            self.round_scores.append((1, 0))  
+            self.round_scores.append((1, 0))
         else:
             print("Player 2 wins!")
             self.p2.score += 1
-            self.round_scores.append((0, 1)) 
+            self.round_scores.append((0, 1))
 
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
@@ -63,13 +63,13 @@ class Game:
             print(f"Round {round_num + 1}:")
             self.play_round(round_num)
             p1_round_score, p2_round_score = self.round_scores[round_num]
-            print(f"Round {round_num + 1}"
-" scores - Player 1: {p1_round_score}, Player 2: {p2_round_score}")
+            print(f"Round {round_num + 1} scores - "
+                    f"Player 1: {p1_round_score}, Player 2: {p2_round_score}")
             print()
 
         print("Game over!")
-        print(f"Final score: Player "
-"1 - {self.p1.score}, Player 2 - {self.p2.score}")
+        print(f"Final score: Player 1"
+" - {self.p1.score}, Player 2 - {self.p2.score}")
 
 
 def beats(one, two):
@@ -130,8 +130,8 @@ class CyclePlayer(Player):
 class HumanPlayer(Player):
     def move(self):
         while True:
-            move = input("Enter your move (rock,"
-" paper, scissors, spock, lizard): ").lower()
+            move = input("Enter your move (rock"
+", paper, scissors, spock, lizard): ").lower()
             if move in moves:
                 return move
             else:
@@ -140,14 +140,13 @@ class HumanPlayer(Player):
 
 if __name__ == '__main__':
     print("Welcome to Rock Paper Scissors Spock Lizard!")
-    opponent_choice = input("Do you want to play"
-" against the computer or against "
-"another player? (computer / player): ").lower()
+    opponent_choice = input("Do y"
+"ou want to play against the computer o"
+"r against another player? (computer / player): ").lower()
 
     if opponent_choice == "computer":
-        strategies = [RandomPlayer(),
-    AlwaysRockPlayer(), ImitatorPlayer(),
-    CyclePlayer()]
+        strategies = [RandomPlayer(), AlwaysRockPlayer(),
+, ImitatorPlayer(), CyclePlayer()]
         rounds = int(input("Enter the number of rounds: "))
         game = Game(HumanPlayer(), random.choice(strategies), rounds = rounds)
         game.play_game()
