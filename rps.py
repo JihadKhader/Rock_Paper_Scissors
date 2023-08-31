@@ -29,24 +29,28 @@ class Game:
         self.p1 = p1
         self.p2 = p2
         self.rounds = rounds
+        self.round_scores = []
 
 
 
-    def play_round(self):
+    def play_round(self, round_num):
         move1 = self.p1.move()
         move2 = self.p2.move()
 
         print(f"Player 1: {color_player1}{move1}{color_reset} "
-    f"Player 2: {color_player2}{move2}{color_reset}")
+            f"Player 2: {color_player2}{move2}{color_reset}")
 
         if move1 == move2:
             print("It's a tie!")
+            self.round_scores.append((0, 0))  # Both players get 0 points
         elif beats(move1, move2):
             print("Player 1 wins!")
             self.p1.score += 1
+            self.round_scores.append((1, 0))  # Player 1 gets 1 point
         else:
             print("Player 2 wins!")
             self.p2.score += 1
+            self.round_scores.append((0, 1))  # Player 2 gets 1 point
 
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
@@ -57,11 +61,15 @@ class Game:
         print("Game start!")
         for round_num in range(self.rounds):
             print(f"Round {round_num + 1}:")
-            self.play_round()
+            self.play_round(round_num)
+            p1_round_score, p2_round_score = self.round_scores[round_num]
+            print(f"Round {round_num + 1}"
+" scores - Player 1: {p1_round_score}, Player 2: {p2_round_score}")
+            print()
 
         print("Game over!")
-        print(f"Final score: Player 1 - "
-"{self.p1.score}, Player 2 - {self.p2.score}")
+        print(f"Final score: Player "
+"1 - {self.p1.score}, Player 2 - {self.p2.score}")
 
 
 def beats(one, two):
