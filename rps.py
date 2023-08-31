@@ -42,15 +42,15 @@ class Game:
 
         if move1 == move2:
             print("It's a tie!")
-            self.round_scores.append((0, 0))  # Both players get 0 points
+            self.round_scores.append((0, 0))  
         elif beats(move1, move2):
             print("Player 1 wins!")
             self.p1.score += 1
-            self.round_scores.append((1, 0))  # Player 1 gets 1 point
+            self.round_scores.append((1, 0))  
         else:
             print("Player 2 wins!")
             self.p2.score += 1
-            self.round_scores.append((0, 1))  # Player 2 gets 1 point
+            self.round_scores.append((0, 1)) 
 
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
