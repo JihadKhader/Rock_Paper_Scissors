@@ -38,7 +38,7 @@ class Game:
         move2 = self.p2.move()
 
         print(f"Player 1: {color_player1}{move1}{color_reset} "
-                f"Player 2: {color_player2}{move2}{color_reset}")
+f"Player 2: {color_player2}{move2}{color_reset}")
 
         if move1 == move2:
             print("It's a tie!")
@@ -56,7 +56,6 @@ class Game:
         self.p2.learn(move2, move1)
 
 
-
     def play_game(self):
         print("Game start!")
         for round_num in range(self.rounds):
@@ -64,12 +63,12 @@ class Game:
             self.play_round(round_num)
             p1_round_score, p2_round_score = self.round_scores[round_num]
             print(f"Round {round_num + 1} scores - "
-                    f"Player 1: {p1_round_score}, Player 2: {p2_round_score}")
+f"Player 1: {p1_round_score}, Player 2: {p2_round_score}")
             print()
 
         print("Game over!")
-        print(f"Final score: Player 1"
-" - {self.p1.score}, Player 2 - {self.p2.score}")
+        print(f"Final score: Player 1 - "
+"{self.p1.score}, Player 2 - {self.p2.score}")
 
 
 def beats(one, two):
@@ -120,7 +119,6 @@ class CyclePlayer(Player):
         self.move_index = 0
 
 
-
     def move(self):
         move = moves[self.move_index]
         self.move_index = (self.move_index + 1) % len(moves)
@@ -130,8 +128,8 @@ class CyclePlayer(Player):
 class HumanPlayer(Player):
     def move(self):
         while True:
-            move = input("Enter your move (rock"
-", paper, scissors, spock, lizard): ").lower()
+            move = input("Enter your move (rock,"
+" paper, scissors, spock, lizard): ").lower()
             if move in moves:
                 return move
             else:
@@ -140,19 +138,31 @@ class HumanPlayer(Player):
 
 if __name__ == '__main__':
     print("Welcome to Rock Paper Scissors Spock Lizard!")
-    opponent_choice = input("Do y"
-"ou want to play against the computer o"
-"r against another player? (computer / player): ").lower()
+    while True:
+        opponent_choice = input("Do you want to play against"
+" the computer or against another player? (computer / player): ").lower()
+        if opponent_choice in ["computer", "player"]:
+            break
+        else:
+            print("Invalid choice. Please choose 'computer' or 'player'.")
+
+    while True:
+        try:
+            rounds = int(input("Enter the number of rounds: "))
+            if rounds > 0:
+                break
+            else:
+                print("Please enter a positive integer"
+" for the number of rounds.")
+        except ValueError:
+            print("Invalid input. Please enter a"
+" positive integer for the number of rounds.")
 
     if opponent_choice == "computer":
         strategies = [RandomPlayer(), AlwaysRockPlayer(),
-ImitatorPlayer(), CyclePlayer()]
-        rounds = int(input("Enter the number of rounds: "))
+    ImitatorPlayer(), CyclePlayer()]
         game = Game(HumanPlayer(), random.choice(strategies), rounds = rounds)
         game.play_game()
     elif opponent_choice == "player":
-        rounds = int(input("Enter the number of rounds: "))
         game = Game(HumanPlayer(), HumanPlayer(), rounds = rounds)
         game.play_game()
-    else:
-        print("Invalid choice. Please choose 'computer' or 'player'.")
