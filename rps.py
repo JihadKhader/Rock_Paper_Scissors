@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     if opponent_choice == "computer":
         strategies = [RandomPlayer(), AlwaysRockPlayer(),
-, ImitatorPlayer(), CyclePlayer()]
+ImitatorPlayer(), CyclePlayer()]
         rounds = int(input("Enter the number of rounds: "))
         game = Game(HumanPlayer(), random.choice(strategies), rounds = rounds)
         game.play_game()
